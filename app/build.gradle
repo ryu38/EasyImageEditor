@@ -64,7 +64,7 @@ dependencies {
     // additional icons
     implementation "androidx.compose.material:material-icons-extended:$compose_version"
 
-    // hilt
+    // hilt and navigation
     implementation "com.google.dagger:hilt-android:$hilt_version"
     implementation "androidx.hilt:hilt-navigation-compose:$hilt_nav_compose_version"
     kapt "com.google.dagger:hilt-compiler:$hilt_version"

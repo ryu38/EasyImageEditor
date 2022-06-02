@@ -13,6 +13,7 @@ fun CustomTopAppBar(
     TopAppBar(
         title = { Text(title) },
         backgroundColor = MaterialTheme.colors.background,
-        elevation = 0.dp
+        elevation = 0.dp,
+        actions = {}
     )
 }

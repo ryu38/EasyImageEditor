@@ -13,6 +13,9 @@ class StopWatch(val logTag: String = "STOPWATCH") {
     }
 
     fun start() {
+        if (startTime != null) {
+            reset()
+        }
         startTime = System.currentTimeMillis()
     }
 
