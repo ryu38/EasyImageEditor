@@ -1,4 +1,4 @@
-package com.example.easyimageeditor.utils
+package com.example.easyimageeditor.utils.debug
 
 import android.util.Log
 

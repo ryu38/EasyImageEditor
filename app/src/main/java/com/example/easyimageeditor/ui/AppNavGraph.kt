@@ -8,6 +8,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.easyimageeditor.ui.edit.EditScreen
+import com.example.easyimageeditor.ui.open.OpenScreen
 
 @Composable
 fun AppNavGraph() {

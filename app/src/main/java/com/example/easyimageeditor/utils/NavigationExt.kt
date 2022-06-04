@@ -1,4 +1,4 @@
-package com.example.easyimageeditor.extension
+package com.example.easyimageeditor.utils
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember

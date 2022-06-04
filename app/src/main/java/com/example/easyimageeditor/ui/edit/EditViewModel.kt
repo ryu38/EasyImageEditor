@@ -8,7 +8,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.SavedStateHandle
-import com.example.easyimageeditor.extension.context
+import com.example.easyimageeditor.utils.context
 import com.example.easyimageeditor.ui.NavScreen
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
@@ -21,7 +21,7 @@ class EditViewModel @Inject constructor(
     savedStateHandle: SavedStateHandle
 ) : AndroidViewModel(app) {
 
-    val imageName = requireNotNull(
+    private val imageName = requireNotNull(
         savedStateHandle.get<String>(NavScreen.Edit.arg)
     )
 

@@ -1,4 +1,4 @@
-package com.example.easyimageeditor.extension
+package com.example.easyimageeditor.utils
 
 import android.content.Context
 import androidx.lifecycle.AndroidViewModel
