@@ -15,30 +15,46 @@ fun AppNavGraph() {
     val navController = rememberNavController()
     NavHost(
         navController = navController,
-        startDestination = NavScreen.Launch.route
+        startDestination = NavDest.Launch.route
     ) {
-        composable(NavScreen.Launch.route) {
-            OpenScreen(hiltViewModel()) {
-                navController.navigate(NavScreen.Edit.fillInArg(it))
-            }
+        composable(
+            NavDest.Launch.route
+        ) {
+            OpenScreen(
+                viewModel = hiltViewModel(),
+                navigate = {
+                    navController.navigate(NavDest.Edit.fillInArg(it))
+                }
+            )
         }
         composable(
-            NavScreen.Edit.routeWithArgs,
-            arguments = listOf(navArgument(NavScreen.Edit.arg) { NavType.StringType })
+            NavDest.Edit.route,
+            arguments = listOf(
+                navArgument(NavDest.Edit.arg) { NavType.StringType }
+            )
         ) {
-            EditScreen(hiltViewModel())
+            val args = requireNotNull(it.arguments)
+            EditScreen(
+                viewModel = hiltViewModel(),
+                imageName = requireNotNull(args.getString(NavDest.Edit.arg))
+            )
         }
     }
 }
 
-sealed class NavScreen(val route: String) {
-    object Launch : NavScreen("launch")
+sealed class NavDest {
+    abstract val route: String
 
-    object Edit : NavScreen("edit") {
+    object Launch : NavDest() {
+        override val route = "launch"
+    }
+
+    object Edit : NavDest() {
+        private const val path = "edit"
         const val arg = "imageName"
-        val routeWithArgs = "$route/{$arg}"
-        fun fillInArg(imageName: String) = "$route/$imageName"
+        override val route = "$path/{$arg}"
+        fun fillInArg(imageName: String) = "$path/$imageName"
     }
 }
 
-typealias EditNavigator = (String) -> Unit
+typealias EditNavigator = (imageName: String) -> Unit

@@ -1,40 +1,45 @@
 package com.example.easyimageeditor.ui.edit
 
-import android.app.Application
-import android.graphics.Bitmap
+import android.content.Context
 import android.graphics.BitmapFactory
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.SavedStateHandle
-import com.example.easyimageeditor.utils.context
-import com.example.easyimageeditor.ui.NavScreen
+import androidx.lifecycle.ViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
-import com.example.easyimageeditor.ui.edit.models.TunedParams
 import java.io.File
 
 @HiltViewModel
-class EditViewModel @Inject constructor(
-    app: Application,
-    savedStateHandle: SavedStateHandle
-) : AndroidViewModel(app) {
+class EditViewModel @Inject constructor() : ViewModel() {
 
-    private val imageName = requireNotNull(
-        savedStateHandle.get<String>(NavScreen.Edit.arg)
-    )
-
-    var src by mutableStateOf(loadInternalImageFile(imageName))
+    var uiState by mutableStateOf<EditUiState?>(null)
         private set
 
-    var tunedParams by mutableStateOf(TunedParams())
-        private set
+    fun initState(context: Context, imageName: String) {
+        val src = BitmapFactory.decodeFile(File(context.filesDir, imageName).path)
+        uiState = EditUiState(
+            selectedModeIndex = 0,
+            src = src,
+            saturation = 1f,
+        )
+    }
 
-    private fun loadInternalImageFile(imageName: String): Bitmap =
-        BitmapFactory.decodeFile(File(context.filesDir, imageName).path)
+    fun onSelectTuneMode() {
+        uiState = uiState?.copy(
+            selectedModeIndex = 0
+        )
+    }
 
-    fun setSaturation(sat: Float) {
-        tunedParams = tunedParams.copy(saturation = sat)
+    fun onSelectCropMode() {
+        uiState = uiState?.copy(
+            selectedModeIndex = 1
+        )
+    }
+
+    fun onSaturationChange(currentSaturation: Float) {
+        uiState = uiState?.copy(
+            saturation = currentSaturation
+        )
     }
 }

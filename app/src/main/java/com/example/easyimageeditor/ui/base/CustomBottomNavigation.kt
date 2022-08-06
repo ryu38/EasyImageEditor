@@ -12,9 +12,8 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun CustomBottomNavigation(
     navItems: List<NavItems>,
-    initIndex: Int = 0,
+    selectedItemIndex: Int = 0,
 ) {
-    var selectedItemId by rememberSaveable { mutableStateOf(initIndex) }
     BottomNavigation(
         backgroundColor = MaterialTheme.colors.surface,
         elevation = 0.dp
@@ -23,10 +22,9 @@ fun CustomBottomNavigation(
             BottomNavigationItem(
                 label = { Text(navItem.label) },
                 icon = { Icon(navItem.icon, contentDescription = navItem.label) },
-                selected = selectedItemId == index,
+                selected = selectedItemIndex == index,
                 onClick = {
                     navItem.onClick()
-                    selectedItemId = index
                 }
             )
         }
